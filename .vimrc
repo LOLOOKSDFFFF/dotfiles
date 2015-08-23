@@ -1,7 +1,7 @@
 set nocompatible
 
 
-"curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
 call plug#begin('~/.vim/plugged')
@@ -14,25 +14,36 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-surround'
     Plug 'vim-scripts/matchit.zip'
+    Plug 'bling/vim-airline'
+    Plug 'scrooloose/syntastic'
+    Plug 'tpope/vim-commentary'
 call plug#end()
 
 
 filetype plugin indent on
 
 
-set autoread
 set background=dark
-set encoding=utf-8
-set expandtab
-set incsearch
-set laststatus=2
-set ruler
-set scrolloff=1
-set shiftwidth=4
-set showcmd
-set tabstop=4
 set t_Co=256
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set modeline
+
+set autoread
+
+set encoding=utf-8
+
+set hlsearch
+set incsearch
+
+set number
+
+set ruler
+set showcmd
 set wildmenu
+set laststatus=2
 
 
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
@@ -47,3 +58,14 @@ colorscheme desert
 if has('nvim')
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
+
+
+let mapleader=","
+
+nnoremap <esc> :noh<return><esc>
+nmap <silent> <leader><leader> :NERDTreeToggle<CR>
+
+map <C-k> <C-w><Up>
+map <C-j> <C-w><Down>
+map <C-l> <C-w><Right>
+map <C-h> <C-w><Left>
