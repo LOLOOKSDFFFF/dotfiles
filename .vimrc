@@ -37,6 +37,7 @@ set encoding=utf-8
 
 set hlsearch
 set incsearch
+set ignorecase
 
 set number
 
@@ -63,9 +64,20 @@ endif
 let mapleader=","
 
 nnoremap <esc> :noh<return><esc>
-nmap <silent> <leader><leader> :NERDTreeToggle<CR>
 
 map <C-k> <C-w><Up>
 map <C-j> <C-w><Down>
 map <C-l> <C-w><Right>
 map <C-h> <C-w><Left>
+
+
+autocmd BufWritePre * :%s/\s\+$//e " automatically removing all trailing whitespace
+
+
+" Plugin settings
+let NERDTreeQuitOnOpen = 1
+nmap <silent> <leader><leader> :NERDTreeToggle<CR>
+nmap <C-\> :NERDTreeFind<CR>
+
+let g:syntastic_python_python_exec = '/bin/python2'
+let g:syntastic_python_flake8_args = '--ignore=E501'
