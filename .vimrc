@@ -20,6 +20,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'leafgarland/typescript-vim'
+    Plug 'nelstrom/vim-visual-star-search'
 call plug#end()
 
 
@@ -61,6 +62,7 @@ colorscheme desert
 
 if has('nvim')
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
 
 
@@ -86,24 +88,13 @@ au FileType json setlocal equalprg=python\ -m\ json.tool\ 2>/dev/null
 let NERDTreeQuitOnOpen = 1
 nmap <silent> <leader><leader> :NERDTreeToggle<CR>
 nmap <C-\> :NERDTreeFind<CR>
+let NERDTreeIgnore = ['\.pyc$']
+
+let g:ctrlp_custom_ignore = {
+  \ 'file': '\v\.(pyc)$',
+  \ }
 
 let g:syntastic_python_python_exec = '/bin/python2'
 let g:syntastic_python_flake8_args = '--ignore=E501'
 
 let g:airline_powerline_fonts = 1
-
-" ==================================================
-" http://vim.wikia.com/wiki/Search_for_visually_selected_text
-" Search selected text by press *
-" ==================================================
-vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R><C-R>=substitute(
-  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-" ==================================================
