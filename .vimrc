@@ -17,6 +17,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'bling/vim-airline'
     Plug 'scrooloose/syntastic'
     Plug 'tpope/vim-commentary'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'michaeljsmith/vim-indent-object'
+    Plug 'leafgarland/typescript-vim'
 call plug#end()
 
 
@@ -74,6 +77,11 @@ map <C-h> <C-w><Left>
 autocmd BufWritePre * :%s/\s\+$//e " automatically removing all trailing whitespace
 
 
+" equalprg
+au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+au FileType json setlocal equalprg=python\ -m\ json.tool\ 2>/dev/null
+
+
 " Plugin settings
 let NERDTreeQuitOnOpen = 1
 nmap <silent> <leader><leader> :NERDTreeToggle<CR>
@@ -81,3 +89,21 @@ nmap <C-\> :NERDTreeFind<CR>
 
 let g:syntastic_python_python_exec = '/bin/python2'
 let g:syntastic_python_flake8_args = '--ignore=E501'
+
+let g:airline_powerline_fonts = 1
+
+" ==================================================
+" http://vim.wikia.com/wiki/Search_for_visually_selected_text
+" Search selected text by press *
+" ==================================================
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+" ==================================================
