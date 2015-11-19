@@ -1,8 +1,14 @@
 set nocompatible
 
-
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
+if has('nvim')
+    if !filereadable(expand('~/.config/nvim/autoload/plug.vim'))
+        :!curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    endif
+else
+    if !filereadable(expand('~/.vim/autoload/plug.vim'))
+        :!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    endif
+endif
 
 call plug#begin('~/.vim/plugged')
     Plug 'honza/vim-snippets'
@@ -98,3 +104,7 @@ let g:syntastic_python_python_exec = '/bin/python2'
 let g:syntastic_python_flake8_args = '--ignore=E501'
 
 let g:airline_powerline_fonts = 1
+
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
