@@ -14,19 +14,24 @@ call plug#begin('~/.vim/plugged')
     Plug 'honza/vim-snippets'
     Plug 'hynek/vim-python-pep8-indent'
     Plug 'jiangmiao/auto-pairs'
-    Plug 'kien/ctrlp.vim'
     Plug 'scrooloose/nerdtree'
     Plug 'SirVer/ultisnips'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-surround'
     Plug 'vim-scripts/matchit.zip'
     Plug 'bling/vim-airline'
-    Plug 'scrooloose/syntastic'
     Plug 'tpope/vim-commentary'
     Plug 'airblade/vim-gitgutter'
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'leafgarland/typescript-vim'
     Plug 'nelstrom/vim-visual-star-search'
+
+    Plug 'ludovicchabant/vim-gutentags'
+
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+
+    Plug 'benekastah/neomake'
 call plug#end()
 
 
@@ -96,15 +101,17 @@ nmap <silent> <leader><leader> :NERDTreeToggle<CR>
 nmap <C-\> :NERDTreeFind<CR>
 let NERDTreeIgnore = ['\.pyc$']
 
-let g:ctrlp_custom_ignore = {
-  \ 'file': '\v\.(pyc)$',
-  \ }
-
-let g:syntastic_python_python_exec = '/bin/python2'
-let g:syntastic_python_flake8_args = '--ignore=E501'
 
 let g:airline_powerline_fonts = 1
 
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
+
+nnoremap <silent> <C-p> :Files<CR>
+let g:fzf_layout = { 'down': '~20%' }
+
+
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR><C-w>r<CR>
+
+
+autocmd! BufWritePost * Neomake
+let g:neomake_python_flake8_maker = {'args': ['--ignore=E501']}
+let g:neomake_error_sign = {'text': '❯❯', 'texthl': 'ErrorMsg'}
