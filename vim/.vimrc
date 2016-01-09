@@ -25,13 +25,12 @@ call plug#begin('~/.vim/plugged')
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'leafgarland/typescript-vim'
     Plug 'nelstrom/vim-visual-star-search'
-
-    Plug 'ludovicchabant/vim-gutentags'
-
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-
     Plug 'benekastah/neomake'
+    Plug 'junegunn/vim-easy-align'
+
+    Plug 'ludovicchabant/vim-gutentags' "autogenerate tags
 call plug#end()
 
 
@@ -40,6 +39,7 @@ filetype plugin indent on
 
 set background=dark
 set t_Co=256
+set lazyredraw
 
 set tabstop=4
 set shiftwidth=4
@@ -106,6 +106,7 @@ let g:airline_powerline_fonts = 1
 
 
 nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <leader><Enter> :Buffers<CR>
 let g:fzf_layout = { 'down': '~20%' }
 
 
