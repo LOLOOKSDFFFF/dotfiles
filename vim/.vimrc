@@ -116,3 +116,7 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR><C-w>r<CR>
 autocmd! BufWritePost * Neomake
 let g:neomake_python_flake8_maker = {'args': ['--ignore=E501']}
 let g:neomake_error_sign = {'text': '❯❯', 'texthl': 'ErrorMsg'}
+
+let g:neomake_typescript_tsc_maker = {'args': ['-m', 'commonjs', '-t', 'es6', '--outDir', '/tmp']}
+
+autocmd Filetype typescript setlocal makeprg=tsc
